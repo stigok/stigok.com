@@ -44,8 +44,11 @@ header {
 }
 
 footer {
-  padding-top: .5em;
+  margin-top: .5em;
+  padding: .5em;
   border-top: 1px solid #000;
+  background-color: rgba(255, 0, 255, .35);
+  color: #fff;
   text-align: center;
 }
 
