@@ -11,7 +11,9 @@
       }).then(readyFn)
       window.onload = isReady
     } else {
-      return document.querySelector(arguments[0])
+      const selector = arguments[0]
+      if (selector.startsWith('#')) return document.querySelector(selector)
+      else return document.querySelectorAll(selector)
     }
   }
 })(window, document)
