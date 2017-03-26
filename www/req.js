@@ -3,7 +3,7 @@
 // response object, extended with a .json property.
 (function (window) {
   window.req = function (url, data, cb) {
-    if (!url) return console.error('Missing URL')
+    if (!url) throw new Error('Missing URL')
     if (!cb) {
       cb = data
       data = null

@@ -64,6 +64,9 @@ ul li:before {
 #blogposts li {
   animation-duration: 1s;
   animation-name: fadein;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  white-space: nowrap;
 }
 
 a[href="#fail"] {
