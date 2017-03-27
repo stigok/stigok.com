@@ -27,7 +27,15 @@
 
       getPosts(maxposts)
         .then(posts => staggerPosts(posts))
-        .catch(() => staggerPosts('Failed to load real posts'.split(' ').map(word => ({name: word, link: '#fail'}))))
+        .catch(() => {
+          const posts = 'Failed to load real posts'
+            .split(' ')
+            .map(word => ({
+              title: word,
+              link: '#pleasecomebacklater!&lt;21'
+            }))
+          staggerPosts(posts)
+        })
 
       //
       // Copy to clipboard for the public key
@@ -54,14 +62,19 @@
             reject(err)
             return
           }
-          resolve(data.json.slice(0, count))
+          const posts = data.json
+            .slice(0, count)
+            .map(post => Object.assign(post, {
+              link: 'https://blog.stigok.com/post/${post.slug}'
+            }))
+          resolve(posts)
         })
       })
     }
 
     function update (render, items) {
       render`${items.map(item => hyperHTML.wire(item)`
-        <li><a href="${'https://blog.stigok.com/post/' + item.slug}">${item.title}</a></li>
+        <li><a href="${item.link}">${item.title}</a></li>
       `)}`
     }
   </script>

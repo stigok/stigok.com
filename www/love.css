@@ -69,7 +69,7 @@ ul li:before {
   white-space: nowrap;
 }
 
-a[href="#fail"] {
+a[href^="#"] {
   color: red;
 }
 
