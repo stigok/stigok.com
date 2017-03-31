@@ -62,11 +62,14 @@ ul li:before {
 }
 
 #blogposts li {
-  animation-duration: 1s;
-  animation-name: fadein;
   text-overflow: ellipsis;
   overflow-x: hidden;
   white-space: nowrap;
+}
+
+.staggered {
+  animation-duration: 1s;
+  animation-name: fadein;
 }
 
 a[href^="#"] {

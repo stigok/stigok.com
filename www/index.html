@@ -11,22 +11,28 @@
   <script src="title.js?love"></script>
   <script>
     $(() => {
-      const render = hyperHTML.bind(document.querySelector('#blogposts'))
-      const staggered = []
       // Match the line length of the #about section
       const maxposts = $('pre')[0].innerText.trim().split(/[\r\n]+/g).length
 
-      function staggerPosts (posts) {
-        for (let i = 0; i < posts.length; i++) {
+      const render = hyperHTML.bind(document.querySelector('#blogposts'))
+      function update (items) {
+        render`${items.map(item => hyperHTML.wire(item)`
+          <li class="staggered"><a href="${item.link}" title="${item.title}">${item.title}</a></li>
+        `)}`
+      }
+
+      function stagger (arr, update) {
+        const staggered = []
+        for (let i = 0; i < arr.length; i++) {
           setTimeout(() => {
-            staggered.push(posts[i])
-            update(render, staggered)
+            staggered.push(arr[i])
+            update(staggered)
           }, 200 * i)
         }
       }
 
       getPosts(maxposts)
-        .then(posts => staggerPosts(posts))
+        .then(posts => stagger(posts, update, render))
         .catch(() => {
           const posts = 'Failed to load real posts'
             .split(' ')
@@ -34,7 +40,7 @@
               title: word,
               link: '#pleasecomebacklater!&lt;21'
             }))
-          staggerPosts(posts)
+          stagger(posts, update, render)
         })
 
       //
@@ -70,12 +76,6 @@
           resolve(posts)
         })
       })
-    }
-
-    function update (render, items) {
-      render`${items.map(item => hyperHTML.wire(item)`
-        <li><a href="${item.link}" title="${item.title}">${item.title}</a></li>
-      `)}`
     }
   </script>
 </head>
