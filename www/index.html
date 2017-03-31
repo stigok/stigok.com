@@ -9,6 +9,7 @@
   <script src="js/hyperhtml.js"></script>
   <script src="love.js?foreal"></script>
   <script src="title.js?love"></script>
+  <script src="js/ghibli.js"></script>
   <script>
     $(() => {
       // Match the line length of the #about section
@@ -59,6 +60,19 @@
           button.disabled = true
         }
       }
+
+      const renderCats = hyperHTML.bind($('#ghibli-cats'))
+      const updateCats = (cats) => {
+        renderCats`${cats.map(cat => hyperHTML.wire(cat)`
+          <li class="staggered">${cat.name}</li>
+          `)}`
+      }
+      window.ghibli.getCats()
+        .then(cats => stagger(cats, updateCats))
+        .catch(err => {
+          console.error('Failed to get cat names', err)
+          updateCats([{name: '(no cat names for you today)'}])
+        })
     })
 
     function getPosts (count) {
@@ -129,6 +143,14 @@ no regrets
         <h3>tools</h3>
         <ul>
           <li><a href="https://ip.42.fm" title='aka. "What is my IP"'>What is your IP address?</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h3>cool cats</h3>
+        <ul id="ghibli-cats">
+          <li>loading...</li>
         </ul>
       </div>
     </div>
