@@ -72,6 +72,13 @@ ul li:before {
   animation-name: fadein;
 }
 
+.reference {
+  color: #777;
+}
+.reference a {
+  color: inherit;
+}
+
 a[href^="#"] {
   color: red;
 }
