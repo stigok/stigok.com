@@ -85,7 +85,7 @@
           const posts = data.json
             .slice(0, count)
             .map(post => Object.assign(post, {
-              link: 'https://blog.stigok.com/post/${post.slug}'
+              link: `https://blog.stigok.com/post/${post.slug}`
             }))
           resolve(posts)
         })
