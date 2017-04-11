@@ -1,26 +1,49 @@
 //
 // TODO: document.addEventListener('DOMready')
+// - Multiple $() init functions must be possible
 //
 (function (window, document) {
-  window.$ = function () {
-    if (typeof arguments[0] === 'function') {
-      var readyFn = arguments[0]
-      var isReady
-      new Promise(resolve => {
-        isReady = resolve
-      }).then(readyFn)
-      window.onload = isReady
+  const _pending = []
+  let hasResolved = false
+
+  window.$ = function (arg) {
+    const type = typeof arg
+    if (type === 'function') {
+      addPending(arg)
+      return
+    }
+    if (type !== 'string') {
+      throw new Error('Invalid argument')
+    }
+    if (arg.startsWith('#')) {
+      return document.querySelector(arg)
     } else {
-      const selector = arguments[0]
-      if (selector.startsWith('#')) {
-        return document.querySelector(selector)
-      } else {
-        const arr = []
-        for (let el of document.querySelectorAll(selector)) {
-          arr.push(el)
-        }
-        return arr
-      }
+      return document.querySelectorAll(arg)
     }
   }
+
+  window.onload = function () {
+    console.log('Window loaded')
+    resolve()
+  }
+
+  function resolve () {
+    _pending.forEach((fn, i) => {
+      console.log('Resolving startup function', i + 1)
+      fn()
+    })
+    hasResolved = true
+  }
+
+  function addPending (fn) {
+    if (hasResolved) {
+      console.log('Run pending function immediately')
+      fn()
+    } else {
+      _pending.push(fn)
+      console.log('Enqueued startup function', _pending.length)
+    }
+  }
+
+  console.log('$ loaded')
 })(window, document)
