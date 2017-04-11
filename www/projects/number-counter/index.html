@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>number-counter</title>
+    <script src="../../js/dollar.js"></script>
+    <script src="main.js"></script>
+    <script>
+      $(function () {
+        const $el = $('#counter')
+        const counter = new NumberCount($el)
+      })
+    </script>
+  </head>
+  <body>
+    The count is <span id="counter" data-target-count="255">0</span>
+  </body>
+</html>

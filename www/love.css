@@ -6,6 +6,18 @@ body {
   font: 14px monospace;
 }
 
+#banner {
+  position: relative;
+  color: #ccc;
+}
+
+#counter-container {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  font-size: .7em;
+}
+
 .container {
   width: 100%;
   max-width: 500px;

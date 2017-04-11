@@ -10,6 +10,7 @@
   <script src="love.js?foreal"></script>
   <script src="title.js?love"></script>
   <script src="js/ghibli.js"></script>
+  <script src="projects/number-counter/main.js"></script>
   <script>
     $(() => {
       // Match the line length of the #about section
@@ -73,6 +74,20 @@
           console.error('Failed to get cat names', err)
           updateCats([{name: '(no cat names for you today)'}])
         })
+
+      // Show stats for requests today in banner
+      getRequestCount()
+        .then(count => {
+          const counterContainer = document.createElement('div')
+          counterContainer.id = 'counter-container'
+          counterContainer.innerText = 'Requests today: '
+          const counter = document.createElement('span')
+          counterContainer.appendChild(counter)
+          counter.dataset.targetCount = count
+          NumberCount(counter)
+          $('section img')[0].parentNode.appendChild(counterContainer)
+        })
+
     })
 
     function getPosts (count) {
@@ -91,6 +106,18 @@
         })
       })
     }
+
+    function getRequestCount () {
+      return new Promise((resolve, reject) => {
+        req('https://stigok.com/requests.json', (err, data) => {
+          if (err) {
+            reject(err)
+            return
+          }
+          resolve(data.json.count)
+        })
+      })
+    }
   </script>
 </head>
 <body>
@@ -98,7 +125,7 @@
     <header>
       <h1>stigok.com</h1>
     </header>
-    <section>
+    <section id="banner">
       <img class="img-responsive" src="stigok.png">
     </section>
   </div>
