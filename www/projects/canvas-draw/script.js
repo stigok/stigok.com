@@ -1,18 +1,38 @@
-// Refresh every 3 seconds
-//setTimeout(() => window.location.reload(), 5000);
-
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 ctx.strokeStyle = 'black'
 ctx.globalAlpha = .1
 
-let offset = 0
-const drawSquare = () => {
-  drawFlimsySquare(5 + offset, 5 + offset, 80)
-  offset += moreOrLess(1)
+function drawSquare (offset, size) {
+  return new Promise(resolve => {
+    drawFlimsySquare(offset, offset, size)
+    resolve()
+  })
 }
-drawSquare()
-setInterval(drawSquare, 100)
+
+function resolveAfterDelay (delay) {
+  return (...args) => new Promise(resolve => {
+    setTimeout(() => resolve(...args), delay)
+  })
+}
+
+// Draw some rectangles
+function performRepeatingWork (fn, rounds, delay) {
+  return new Promise(resolve => {
+    let promise
+    for (let i = 0; i < rounds; i++) {
+      promise = (promise || fn())
+      .then(resolveAfterDelay(delay))
+      .then(() => fn())
+    }
+    promise.then(resolve)
+  })
+}
+
+const offset = 10
+const size = 100
+performRepeatingWork(() => drawSquare(offset, size), 50, 50)
+  .then(() => drawSquare(0, 42))
 
 function drawFlimsySquare(x, y, size) {
   ctx.beginPath();
