@@ -1,0 +1,43 @@
+I have been losing my wifi connection a lot lately with wpa_supplicant exiting with
+
+    wpa_supplicant[474]: wlp2s0: CTRL-EVENT-DISCONNECTED bssid=xx:xx:xx:xx:xx reason=4 locally_generated=1
+
+I found a list of [wpa_supplicant reason codes]() that claims reason 4 means *Disassociated due to inactivity*. The connection is certainly not idle when I lose my connectivity, so maybe some connectivity check is failing.
+
+So I enable debugging in NetworkManager by writing to `/etc/NetworkManager/conf.d/00-defaults.conf`:
+
+    [logging]
+    level=DEBUG
+
+Then I run `journalctl -u NetworkManager -f` before restarting NetworkManager with `systemctl restart NetworkManager` and start watching the logs. The first thing I see is what configuration files are being read:
+
+    <info>  [1490522215.5734] Read config: /etc/NetworkManager/NetworkManager.conf (lib: 20-connectivity.conf) (etc: 00-defaults.conf, 10-powersaving.conf
+
+The `lib: 20-connectivity.conf` seems interesting. `/usr/lib/NetworkManager/conf.d/20-connectivity.conf` contains the following:
+
+    [connectivity]
+    uri=http://www.archlinux.org/check_network_status.txt
+
+But the logs says its fine:
+
+    NetworkManager[30021]: <debug> [1490522524.6651] connectivity: check: send periodic request to 'http://www.archlinux.org/check_network_status.txt'
+    NetworkManager[30021]: <debug> [1490522524.7821] connectivity: check for uri 'http://www.archlinux.org/check_network_status.txt' successful.
+
+... which I can confirm by reading the CONNECTIVITY SECTION of `man NetworkManager.conf`
+
+    $ curl http://www.archlinux.org/check_network_status.txt
+    NetworkManager is online
+
+So on to the next possible explanations. Someone is proposing it could be due to wifi scanning taking place, pausing network traffic while the scan is in progress. <https://blogs.gnome.org/dcbw/2016/05/16/networkmanager-and-wifi-scans/>
+
+## Start from scratch
+
+After changing laptop a while back, I used unedited connection profiles from `/etc/NetworkManager/system-connections`. This may have been causing issues with invalid connection UIDS and device hardware addresses. I just deleted all my connections and I'm re-creating them from scratch. Let's see if it helps.
+
+
+To be continued... Please comment with suggestions if you have any!
+
+## References
+- [wpa_supplicant reason codes]()
+
+[wpa_supplicant reason codes]: http://www.aboutcher.co.uk/2012/07/linux-wifi-deauthenticated-reason-codes/
