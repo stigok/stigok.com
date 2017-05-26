@@ -21,7 +21,7 @@
         }
         cb(null, this)
       } else {
-        cb(this)
+        cb('Request returned ' + this.status, this)
       }
     })
 
