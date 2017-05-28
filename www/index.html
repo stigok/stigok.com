@@ -9,7 +9,6 @@
   <script src="js/hyperhtml.js"></script>
   <script src="love.js?foreal"></script>
   <script src="title.js?love"></script>
-  <script src="js/ghibli.js"></script>
   <script src="projects/number-counter/main.js"></script>
   <script>
     $(() => {
@@ -61,19 +60,6 @@
           button.disabled = true
         }
       }
-
-      const renderCats = hyperHTML.bind($('#ghibli-cats'))
-      const updateCats = (cats) => {
-        renderCats`${cats.map(cat => hyperHTML.wire(cat)`
-          <li class="staggered">${cat.name}</li>
-          `)}`
-      }
-      window.ghibli.getCats()
-        .then(cats => stagger(cats, updateCats))
-        .catch(err => {
-          console.error('Failed to get cat names', err)
-          updateCats([{name: '(no cat names for you today)'}])
-        })
 
       // Show stats for requests today in banner
       getRequestCount()
@@ -176,11 +162,10 @@ no regrets
     </div>
     <div class="row">
       <div class="col">
-        <h3>cool cats</h3>
-        <ul id="ghibli-cats">
+        <h3>screens of net</h3>
+        <ul id="screens">
           <li>loading...</li>
         </ul>
-        <small class="reference">(from <a href="https://ghibliapi.herokuapp.com">the studio ghibli api</a>)</small>
       </div>
     </div>
     <section>
