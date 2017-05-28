@@ -43,16 +43,20 @@
           stagger(posts, update, render)
         })
 
+      const screensUrl = 'https://public.42.fm/'
       const renderScreens = hyperHTML.bind(document.querySelector('#screens'))
       function updateScreens (screens) {
         renderScreens`${screens.map(screen => hyperHTML.wire(screen)`
-          <li class="staggered"><a href="${screen.url}">${screen.url}</a></li>
+          <li class="staggered"><a href="${screen.url}">${screen.name}</a></li>
         `)}`
       }
-      req('https://public.42.fm/?json', (err, xhr) => {
+      req(screensUrl + '?json', (err, xhr) => {
         if (err) return console.error(err)
         console.log(xhr)
-        const screens = xhr.json.map(url => ({url: url}))
+        const screens = xhr.json.map(url => ({
+          url: screensUrl + url,
+          name: url
+        }))
         stagger(screens, updateScreens, renderScreens)
       })
 
