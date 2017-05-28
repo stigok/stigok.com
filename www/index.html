@@ -43,6 +43,19 @@
           stagger(posts, update, render)
         })
 
+      const renderScreens = hyperHTML.bind(document.querySelector('#screens'))
+      function updateScreens (screens) {
+        renderScreens`${screens.map(screen => hyperHTML.wire(screen)`
+          <li class="staggered"><a href="${screen.url}">${screen.url}</a></li>
+        `)}`
+      }
+      req('https://public.42.fm/?json', (err, xhr) => {
+        if (err) return console.error(err)
+        console.log(xhr)
+        const screens = xhr.json.map(url => ({url: url}))
+        stagger(screens, updateScreens, renderScreens)
+      })
+
       //
       // Copy to clipboard for the public key
       //
