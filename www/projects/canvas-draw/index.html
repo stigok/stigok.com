@@ -10,26 +10,46 @@
 
     <script>
       $(() => {
+        addTodo('toooo')
+      })
+
+      function addTodo (txt) {
+        const todo = document.createElement('div')
+        const content = document.createElement('div')
+        const canvas = document.createElement('canvas')
         const ctx = canvas.getContext('2d')
         ctx.strokeStyle = 'black'
         ctx.globalAlpha = .1
-        const work = () => drawSquare(10, 80)
-        const finished = () => console.log('finished doing all this work')
-        // Draw some rectangles
-        performRepeatingWork(work, 42, 60)
-          .then(() => {
-            console.log('last square about to drop')
-          })
-          .then(() => drawSquare(0, 42))
-          .then(finished)
-      })
+
+        content.innerText = txt
+        canvas.style.verticalAlign = 'middle'
+        content.style.display = 'inline-block'
+
+        todo.appendChild(canvas)
+        todo.appendChild(content)
+        container.appendChild(todo)
+
+        canvas.width = 50
+        canvas.height = 50
+
+        container.style.overflow = 'hidden'
+        container.style.height = 0
+        container.style.transition = 'height 1s'
+
+        setTimeout(() => {
+          container.style.height = '50px'
+        })
+        setTimeout(() => drawSquare(ctx, 10, 30), 1000)
+      }
     </script>
   </head>
   <body>
     <h1>Hello, world!</h1>
     <h2>love</h2>
 
-    <canvas id="canvas" width="300" height="300"></canvas>
+    <div id="container">
+
+    </div>
 
   </body>
 </html>

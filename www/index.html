@@ -1,9 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html class="nojs">
 <head>
   <title>stigok u know</title>
   <link rel="stylesheet" href="css/love.css?ssc.evol/ssc">
+  <script>
+    document.getElementsByTagName('html')[0].classList.remove('nojs')
+  </script>
   <script src="js/dollar.js"></script>
+  <script>
+    function toggle (e) {
+      var classNames = Array.prototype.slice.call(this.parentNode.classList, 0)
+      if (classNames.indexOf('active') === -1) this.parentNode.classList.add('active')
+      else this.parentNode.classList.remove('active')
+    }
+    
+    $(function () {
+      var headers = document.getElementsByTagName('h2'),
+          i;
+      for (i = 0; i < headers.length; i++) {
+        headers[i].onclick = toggle
+        console.log('yy', headers[i])
+      }
+    })
+  </script>
   <script src="js/req.js"></script>
   <script src="js/clipboard.js?compatability-mode"></script>
   <script src="js/hyperhtml.js"></script>
@@ -59,37 +78,6 @@
         }))
         stagger(screens, updateScreens, renderScreens)
       })
-
-      //
-      // Copy to clipboard for the public key
-      //
-      $('#publickey-clipboard').onclick = function () {
-        const container = $('#publickey')
-        const button = this
-        const success = copyElementTextToClipboard(container)
-        if (success) {
-          setTimeout((text) => {
-            button.innerText = text
-            button.disabled = false
-          }, 2000, button.innerText)
-          button.innerText = 'Copied to clipboard!'
-          button.disabled = true
-        }
-      }
-
-      // Show stats for requests today in banner
-      getRequestCount()
-        .then(count => {
-          const counterContainer = document.createElement('div')
-          counterContainer.id = 'counter-container'
-          counterContainer.innerText = 'Requests today: '
-          const counter = document.createElement('span')
-          counterContainer.appendChild(counter)
-          counter.dataset.targetCount = count
-          NumberCount(counter)
-          $('section img')[0].parentNode.appendChild(counterContainer)
-        })
-
     })
 
     function getPosts (count) {
@@ -108,94 +96,74 @@
         })
       })
     }
-
-    function getRequestCount () {
-      return new Promise((resolve, reject) => {
-        req('https://stigok.com/requests.json', (err, data) => {
-          if (err) {
-            reject(err)
-            return
-          }
-          resolve(data.json.count)
-        })
-      })
-    }
   </script>
 </head>
 <body>
   <div class="container">
-    <header>
+    <header id="header">
       <h1>stigok.com</h1>
     </header>
     <section id="banner">
-      <img class="img-responsive" src="stigok.png">
+      <img class="img-responsive" src="stigok.png" alt="stigok">
     </section>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col col-50">
-        <h2>about</h2>
-        <pre>
-train bjj
-write code
-think lots
-ask questions
-stay positive
-get better
-get faster
-get stronger
-fix problems
-find love
-get children
-be a man
-make music
-share knowledge
-no regrets
-        </pre>
-      </div>
-      <div class="col col-50">
-        <h2>latest blogposts</h2>
-        <ul id="blogposts">
-          <li>loading...</li>
-        </ul>
-      </div>
+    <div id="about">
+      <h2>about</h2>
+      <ol>
+        <li>be good</li>
+        <li>be brave</li>
+        <li>be free</li>
+      </ol>
     </div>
-    <div class="row">
-      <div class="col col-50">
-        <h3>screens of net</h3>
-        <ul id="screens">
-          <li>loading...</li>
-        </ul>
-      </div>
+    <div id="blogPosts">
+      <h2>latest blog posts</h2>
+      <ol id="blogposts">
+        <li>loading...</li>
+      </ol>
     </div>
-    <h2>links and creations</h2>
-    <div class="row">
-      <div class="col col-50">
-        <h3>stuff</h3>
-        <ul>
-          <li><a href="https://blog.stigok.com">blog.stigok.com</a></li>
-          <li><a href="projects/box-shadow-box/index.html">css box-shadow box fun (?)</a></li>
-        </ul>
-      </div>
-      <div class="col col-50">
-        <h3>tools</h3>
-        <ul>
-          <li><a href="https://ip.42.fm" title='aka. "What is my IP"'>What is your IP address?</a></li>
-        </ul>
-      </div>
+    <div id="pictures">
+      <h2>pictures</h2>
+      <ol id="screens">
+        <li>loading...</li>
+      </ol>
     </div>
-    <section>
+    <div id="links">
+      <h2>links</h2>
+      <ul>
+        <li><a href="https://blog.stigok.com">blog.stigok.com</a></li>
+        <li><a href="projects/box-shadow-box/index.html">css box-shadow box fun (?)</a></li>
+      </ul>
+    </div>
+    <div id="projects">
+      <h2>projects &amp; tools</h2>
+      <ul>
+        <li><a href="https://ip.42.fm" title='aka. "What is my IP"'>What is your IP address?</a></li>
+      </ul>
+    </div>
+    <div id="contact">
       <h2>contact</h2>
       <p>
-        my e-mail address starts with stig and ends with my domain.
+        my e-mail address starts with <em>stig</em> and ends with
+        <em title="@stigok.com">this domain</em>.
+        I prefer to receive encrypted mail
       </p>
-      <h3>public key</h3>
       <p>
-        <button type="button" id="publickey-clipboard">copy to clipboard</button>
-        <a href="https://stigok.com/publickey.asc">download publickey.asc</a>
+        alternatively, you can whisper me. the message will be gpg encrypted
+        upon on server arrival.
       </p>
-      <textarea id="publickey">-----BEGIN PGP PUBLIC KEY BLOCK-----
-
+      <h3>whisper</h3>
+      <form action="/message" method="post">
+        <label for="message" class="sr-only">message</label>
+        <textarea id="message" name="message" rows="7" cols="80"></textarea>
+        <input type="submit" name="sendmsg" value="whisper me">
+      </form>
+    </div>
+    <div>
+      <h2>public key</h2>
+      <p>
+        <a href="https://stigok.com/publickey.asc">publickey.asc</a>
+      </p>
+      <pre id="publickey">
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 mQENBFhSXtMBCADf1CGtevPBIHJOAJAAAAjJ1sL9fljguX+cv9xcWgZOr3qcBpAQ
 XdLzzgeIGfTQznu2dNcntLwalTtAr9SI/Tb5iiQE+voffeuDogoifIrUWGnZsjyl
 smN2zMWxXzJCNmGY2MlA3Y7fnS7WnRh3gXJbYqairuvLxFseHyPlzUtfi8VKJ2SQ
@@ -223,8 +191,9 @@ sXklBrx1uEOedQIuWUt0sneiWOt3ngB5IMComfCdDmFLjHtACyRzQpICD5nY5a5V
 XzFz6yYBfNVgk71YuFiKFwZbVrCApJQ640DpooausW1GUMO3rYJdoqFm2CWDl1PU
 DEnj8No+Lvi7WoUXO8DJ1Ri+eT/QjqjJT1WNgN5YKDQ=
 =AC9l
------END PGP PUBLIC KEY BLOCK-----</textarea>
-    </section>
+-----END PGP PUBLIC KEY BLOCK-----
+      </pre>
+    </div>
     <footer>
       1 love, foreal
     </footer>
