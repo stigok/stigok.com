@@ -9,14 +9,25 @@
   color: #000;
 }
 
+/* tiny reset */
+h1, h2, h3, h4, h5,
+p, pre, div, section,
+ul, ol {
+  margin-bottom: 0;
+}
+
 * > * + * {
   margin-top: .5rem;
+}
+
+.container + .container {
+  margin-top: 1rem;
 }
 
 body {
   font-family: 'monospace', monospace, sans-serif;
   font-size: 100%;
-  margin: 0;
+  margin: 1rem 0 0;
   padding: 0;
 }
 
@@ -32,11 +43,7 @@ body {
   margin: 0 auto;
   border: 1px solid transparent;
   transition: border .5s;
-  padding: 0 .5rem;
-}
-
-.container + .container {
-  margin-top: 1rem;
+  padding: 1rem .5rem;
 }
 
 /*
@@ -62,6 +69,7 @@ html:not(.nojs) .container > *.active > :not(:first-child) {
 }
 
 #header > h1 {
+  margin: 0;
   font-size: 80%;
 }
 
@@ -85,7 +93,7 @@ h3:before { content: '## ' }
 }
 
 p {
-  margin-left: 1rem;
+  padding: 0 1rem;
 }
 
 pre {

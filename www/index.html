@@ -31,8 +31,7 @@
   <script src="projects/number-counter/main.js"></script>
   <script>
     $(() => {
-      // Match the line length of the #about section
-      const maxposts = $('pre')[0].innerText.trim().split(/[\r\n]+/g).length
+      const maxposts = 5
 
       const render = hyperHTML.bind(document.querySelector('#blogposts'))
       function update (items) {
@@ -117,15 +116,15 @@
     </div>
     <div id="blogPosts">
       <h2>latest blog posts</h2>
-      <ol id="blogposts">
+      <ul class="dashed" id="blogposts">
         <li>loading...</li>
-      </ol>
+      </ul>
     </div>
     <div id="pictures">
       <h2>pictures</h2>
-      <ol id="screens">
+      <ul class="dashed" id="screens">
         <li>loading...</li>
-      </ol>
+      </ul>
     </div>
     <div id="links">
       <h2>links</h2>
@@ -147,19 +146,17 @@
         <em title="@stigok.com">this domain</em>.
         I prefer to receive encrypted mail.
       </p>
-      <div class="container">
-        <h3>whisper</h3>
-        <p>
-          ... or you can whisper me. the message will be gpg encrypted on server
-          arrival. if you expect an answer, I expect instructions on how to reply.
-        </p>
-        <form action="/message" method="post">
-          <label for="message" class="sr-only">message</label>
-          <textarea id="message" name="message" rows="7" cols="80"></textarea>
-          <input type="submit" name="sendmsg" value="/send">
-        </form>
-        
-      </div>
+      <!-- TODO
+      <p>
+        ... or you can <a href="#" onclick="message.focus(); return false;">whisper me</a>. if you expect an answer, I expect
+        instructions on how to reply.
+      </p>
+      <form action="/message" method="post">
+        <label for="message" class="sr-only">message</label>
+        <textarea id="message" name="message" rows="4" cols="80"></textarea>
+        <input type="submit" name="sendmsg" value="send message">
+      </form>
+      -->
     </div>
     <div>
       <h2>public key</h2>
@@ -195,8 +192,7 @@ sXklBrx1uEOedQIuWUt0sneiWOt3ngB5IMComfCdDmFLjHtACyRzQpICD5nY5a5V
 XzFz6yYBfNVgk71YuFiKFwZbVrCApJQ640DpooausW1GUMO3rYJdoqFm2CWDl1PU
 DEnj8No+Lvi7WoUXO8DJ1Ri+eT/QjqjJT1WNgN5YKDQ=
 =AC9l
------END PGP PUBLIC KEY BLOCK-----
-      </pre>
+-----END PGP PUBLIC KEY BLOCK-----</pre>
     </div>
   </div>
   <footer id="footer" class="container">
