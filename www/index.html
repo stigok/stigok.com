@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html class="nojs">
 <head>
+  <meta name="viewport" content="width=device-width">
   <title>stigok u know</title>
   <link rel="stylesheet" href="css/love.css?ssc.evol/ssc">
   <script>
@@ -136,7 +137,7 @@
     <div id="projects">
       <h2>projects &amp; tools</h2>
       <ul>
-        <li><a href="https://ip.42.fm" title='aka. "What is my IP"'>What is your IP address?</a></li>
+        <li><a href="https://ip.42.fm">"What is my IP?"</a></li>
       </ul>
     </div>
     <div id="contact">
@@ -144,18 +145,21 @@
       <p>
         my e-mail address starts with <em>stig</em> and ends with
         <em title="@stigok.com">this domain</em>.
-        I prefer to receive encrypted mail
+        I prefer to receive encrypted mail.
       </p>
-      <p>
-        alternatively, you can whisper me. the message will be gpg encrypted
-        upon on server arrival.
-      </p>
-      <h3>whisper</h3>
-      <form action="/message" method="post">
-        <label for="message" class="sr-only">message</label>
-        <textarea id="message" name="message" rows="7" cols="80"></textarea>
-        <input type="submit" name="sendmsg" value="whisper me">
-      </form>
+      <div class="container">
+        <h3>whisper</h3>
+        <p>
+          ... or you can whisper me. the message will be gpg encrypted on server
+          arrival. if you expect an answer, I expect instructions on how to reply.
+        </p>
+        <form action="/message" method="post">
+          <label for="message" class="sr-only">message</label>
+          <textarea id="message" name="message" rows="7" cols="80"></textarea>
+          <input type="submit" name="sendmsg" value="/send">
+        </form>
+        
+      </div>
     </div>
     <div>
       <h2>public key</h2>
@@ -194,9 +198,9 @@ DEnj8No+Lvi7WoUXO8DJ1Ri+eT/QjqjJT1WNgN5YKDQ=
 -----END PGP PUBLIC KEY BLOCK-----
       </pre>
     </div>
-    <footer>
-      1 love, foreal
-    </footer>
   </div>
+  <footer id="footer" class="container">
+    1 love, foreal
+  </footer>
 </body>
 </html>
