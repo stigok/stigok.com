@@ -95,6 +95,14 @@
         })
       })
     }
+    
+    function rand (min, max) {
+      return Math.floor(Math.random() * (max - min)) + min
+    }
+    $(function () {
+      var things = 'color,color-burn,color-dodge,darken,difference,exclusion,hard-light,hue,lighten,luminosity,multiply,normal,overlay,saturation,screen,soft-light'.split(',')
+      banner.style.backgroundBlendMode = things[rand(0, things.length)]
+    })
   </script>
 </head>
 <body onfocus="I=0x21" onblur="I=8;look4luv(this)">
@@ -102,9 +110,7 @@
     <header id="header">
       <h1>stigok.com</h1>
     </header>
-    <section id="banner">
-      <img class="img-responsive" src="stigok.png" alt="stigok">
-    </section>
+    <section id="banner"></section>
     <div id="about">
       <h2>about</h2>
       <ol>

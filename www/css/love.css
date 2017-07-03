@@ -67,6 +67,12 @@ html:not(.nojs) .container > *.active > :not(:first-child) {
   font-size: 80%;
 }
 
+#banner {
+  height: 11rem;
+  background: #f7f url(/stigok.png) center center no-repeat;
+  background-size: cover;
+}
+
 .img-responsive {
   width: 100%;
   height: auto;
