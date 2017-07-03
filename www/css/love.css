@@ -31,12 +31,6 @@ body {
   padding: 0;
 }
 
-@media (max-width: 768) {
-  body {
-    font-size: calc(1em + 1vw);
-  }
-}
-
 .container {
   width: 100%;
   max-width: 500px;
@@ -80,6 +74,9 @@ html:not(.nojs) .container > *.active > :not(:first-child) {
 
 h1, h2, h3, h4, h5 {
   font-size: inherit;
+}
+h1 a, h2 a, h3 a, h4 a, h5 a {
+  color: inherit;
 }
 /*h1:before { content: '# ' }*/
 h2:before { content: '# ' }
