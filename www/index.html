@@ -8,22 +8,6 @@
     document.getElementsByTagName('html')[0].classList.remove('nojs')
   </script>
   <script src="js/dollar.js"></script>
-  <script>
-    function toggle (e) {
-      var classNames = Array.prototype.slice.call(this.parentNode.classList, 0)
-      if (classNames.indexOf('active') === -1) this.parentNode.classList.add('active')
-      else this.parentNode.classList.remove('active')
-    }
-    
-    $(function () {
-      var headers = document.getElementsByTagName('h2'),
-          i;
-      for (i = 0; i < headers.length; i++) {
-        headers[i].onclick = toggle
-        console.log('yy', headers[i])
-      }
-    })
-  </script>
   <script src="js/req.js"></script>
   <script src="js/hyperhtml.js"></script>
   <script src="js/title.js?love"></script>
