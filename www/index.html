@@ -81,12 +81,21 @@
       })
     }
     
-    function rand (min, max) {
+    function getRandomInt (min, max) {
       return Math.floor(Math.random() * (max - min)) + min
     }
+    function getRandomBlendMode (arr) {
+      arr = 'color,color-burn,color-dodge,darken,difference,exclusion,hard-light,hue,lighten,luminosity,multiply,normal,overlay,saturation,screen,soft-light'.split(',')
+      return arr[getRandomInt(0, arr.length)]
+    }
+    function toggleElementBlendMode () {
+      this.style.backgroundBlendMode = getRandomBlendMode()
+    }
     $(function () {
-      var things = 'color,color-burn,color-dodge,darken,difference,exclusion,hard-light,hue,lighten,luminosity,multiply,normal,overlay,saturation,screen,soft-light'.split(',')
-      banner.style.backgroundBlendMode = things[rand(0, things.length)]
+      var $banner = $('#banner')
+      $banner.addEventListener('click', toggleElementBlendMode)
+      $banner.style.cursor = 'pointer'
+      toggleElementBlendMode.call($banner)
     })
   </script>
 </head>
