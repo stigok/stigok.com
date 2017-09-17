@@ -40,16 +40,6 @@ body {
   padding: 1rem .5rem;
 }
 
-/*
-html:not(.nojs) .container > * > :not(:first-child) {
-  display: none;
-}
-
-html:not(.nojs) .container > *.active > :not(:first-child) {
-  display: inherit;
-}
-*/
-
 @media (min-width: 550px) {
   .container {
     border-color: #eee;
@@ -69,7 +59,7 @@ html:not(.nojs) .container > *.active > :not(:first-child) {
 
 #banner {
   height: 11rem;
-  background: #f7f url(/stigok.png) center center no-repeat;
+  background: #f7f url(../img/stigok.png) center center no-repeat;
   background-size: cover;
 }
 
@@ -96,7 +86,7 @@ h3:before { content: '## ' }
 }
 
 p {
-  padding: 0 1rem;
+  padding: 0 1.25rem;
 }
 
 pre {
@@ -105,20 +95,19 @@ pre {
 }
 
 ul {
-  margin-left: 1rem;
+  margin-left: 1.25rem;
   padding: 0;
   list-style-type: none;
 }
-ul > ::before {
-  content: '-';
-  display: inline-block;
-  margin-left: .25rem;
-  margin-right: .75rem;
+ol {
+  margin-left: 1.75rem;
+  padding-left: 0;
+  list-style-type: persian;
+  list-style-position: outside;
 }
 
-ol {
-  margin-left: 2.5rem;
-  padding-left: 0;
+ol > li {
+  text-indent: -0.5rem;
 }
 
 li {
@@ -182,7 +171,7 @@ button {
 
 pre {
   border: 1px solid #ddd;
-  margin: 0.5rem;
+  margin: 0.5rem 0.75rem;
   padding: .5rem;
   background: #fdfdfd;
 }
