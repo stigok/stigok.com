@@ -62,6 +62,22 @@
         }))
         stagger(screens, updateScreens, renderScreens)
       })
+
+      const renderMusic = hyperHTML.bind(document.querySelector('#screens'))
+      function updateMusic (data) {
+        renderMusic`${data.map(item => hyperHTML.wire(item)`
+          <li class="staggered"><a href="${item.url}">${item.name}</a></li>
+        `)}`
+      }
+      req('https://api.soundcloud.com/users/1682826/favorites?limit=5&client_id=bf42cf1b844f765ba6ee9444b86af528', (err, xhr) => {
+        if (err) return console.error(err)
+        console.log(err)
+        const tracks = xhr.json.map(item => ({
+          name: `${item.user.username} - ${item.title}`,
+          url: item.permalink_url
+        }))
+        stagger(tracks, updateMusic, renderMusic)
+      })
     })
 
     function getPosts (count) {
@@ -127,10 +143,8 @@
     </div>
     <div id="music">
       <h2>music I &amp;lt;21</h2>
-      <ul class="dashed">
-        <li><a target="_blank" href="https://soundcloud.com/producedbykrs/thank-you">Krs. / Thank You</a></li>
-        <li><a target="_blank" href="https://soundcloud.com/noirsound/kbo">Krs. / Bruk Out</a></li>
-        <li><a target="_blank" href="https://soundcloud.com/spoektekamusic/forca-forca">spoektekamusic / força força</a></li>
+      <ul class="dashed" id="music">
+        <li>loading...</li>
       </ul>
     </div>
     <div id="links">
