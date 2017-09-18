@@ -63,7 +63,7 @@
         stagger(screens, updateScreens, renderScreens)
       })
 
-      const renderMusic = hyperHTML.bind(document.querySelector('#screens'))
+      const renderMusic = hyperHTML.bind(document.querySelector('#tracks'))
       function updateMusic (data) {
         renderMusic`${data.map(item => hyperHTML.wire(item)`
           <li class="staggered"><a href="${item.url}">${item.name}</a></li>
@@ -71,9 +71,9 @@
       }
       req('https://api.soundcloud.com/users/1682826/favorites?limit=5&client_id=bf42cf1b844f765ba6ee9444b86af528', (err, xhr) => {
         if (err) return console.error(err)
-        console.log(err)
         const tracks = xhr.json.map(item => ({
-          name: `${item.user.username} - ${item.title}`,
+          //name: `${item.user.username}: ${item.title}`,
+          name: `${item.title}`,
           url: item.permalink_url
         }))
         stagger(tracks, updateMusic, renderMusic)
@@ -143,7 +143,7 @@
     </div>
     <div id="music">
       <h2>music I &amp;lt;21</h2>
-      <ul class="dashed" id="music">
+      <ul class="dashed" id="tracks">
         <li>loading...</li>
       </ul>
     </div>
