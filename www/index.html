@@ -69,7 +69,7 @@
           <li class="staggered"><a href="${item.url}">${item.name}</a></li>
         `)}`
       }
-      req('https://api.soundcloud.com/users/1682826/favorites?limit=5&client_id=bf42cf1b844f765ba6ee9444b86af528', (err, xhr) => {
+      req('/data/soundcloud-likes.json', (err, xhr) => {
         if (err) return console.error(err)
         console.log(err)
         const tracks = xhr.json.map(item => ({
