@@ -171,17 +171,34 @@
         encrypt the e-mail. I can also be talked to in person when we
         see each other. patience is a virtue.
       </p>
-      <!-- TODO
       <p>
-        ... or you can <a href="#" onclick="message.focus(); return false;">whisper me</a>. if you expect an answer, I expect
+        ... or you can <a href="#" onclick="messageName.focus(); return false;">whisper me</a>. if you expect an answer, I expect
         instructions on how to reply.
       </p>
-      <form action="/message" method="post">
-        <label for="message" class="sr-only">message</label>
-        <textarea id="message" name="message" rows="4" cols="80"></textarea>
+      <script>
+        function sendMessage() {
+          req(messageForm.action, {
+            name: messageName.value,
+            message: messageText.value
+          }, function (text, xhr) {
+            if (xhr && xhr.status === 201) {
+              messageForm.disabled = true
+              alert('message received!')
+              messageForm.reset()
+            } else {
+              alert('message was not sent... (' + text + ')')
+              console.error('Failed to send message', arguments)
+            }
+          })
+        }
+      </script>
+      <form id="messageForm" action="https://stigok.com/api/v1/messages" encoding="application/json" method="post" onsubmit="sendMessage(); return false">
+        <label for="messageName" class="sr-only">name</label>
+        <input id="messageName" name="name" required placeholder="nick / handle">
+        <label for="messageText" class="sr-only">message</label>
+        <textarea id="messageText" name="message" required placeholder="text" rows="4" cols="80"></textarea>
         <input type="submit" name="sendmsg" value="send message">
       </form>
-      -->
     </div>
     <div id="publicKey">
       <h2>public key</h2>
