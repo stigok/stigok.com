@@ -96,7 +96,7 @@
         })
       })
     }
-    
+
     function getRandomInt (min, max) {
       return Math.floor(Math.random() * (max - min)) + min
     }
@@ -162,19 +162,6 @@
     </div>
     <div id="contact">
       <h2>contact</h2>
-      <p>
-        my e-mail address starts with <em>stig</em> and ends with
-        <em title="@stigok.com">this domain</em>.
-      </p>
-      <p>
-        if you want to contact me about subjects of a sensitive nature,
-        encrypt the e-mail. I can also be talked to in person when we
-        see each other. patience is a virtue.
-      </p>
-      <p>
-        ... or you can <a href="#" onclick="messageName.focus(); return false;">whisper me</a>. if you expect an answer, I expect
-        instructions on how to reply.
-      </p>
       <script>
         function sendMessage() {
           req(messageForm.action, {
@@ -192,13 +179,24 @@
           })
         }
       </script>
+      <p>
+        Send me a private message here!
+      </p>
       <form id="messageForm" action="https://stigok.com/api/v1/messages" encoding="application/json" method="post" onsubmit="sendMessage(); return false">
         <label for="messageName" class="sr-only">name</label>
-        <input id="messageName" name="name" required placeholder="nick / handle">
+        <input id="messageName" name="name" required placeholder="name / handle">
         <label for="messageText" class="sr-only">message</label>
         <textarea id="messageText" name="message" required placeholder="text" rows="4" cols="80"></textarea>
-        <input type="submit" name="sendmsg" value="send message">
+        <input type="submit" name="sendmsg" value="send private message">
       </form>
+      <p>
+        if you expect me to answer your message you should include some contact
+        information of your own.
+      </p>
+      <p>
+        alternatively, my <strong>e-mail</strong> address starts with
+        <strong>stig@</strong> and ends with <strong>stigok.com</strong>.
+      </p>
     </div>
     <div id="publicKey">
       <h2>public key</h2>
