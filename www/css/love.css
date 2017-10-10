@@ -129,7 +129,8 @@ a[href^="#pleasecomebacklater"] {
   color: red;
 }
 
-textarea {
+textarea,
+input {
   width: 100%;
   background: #fefefe;
   border: 1px solid #000;
@@ -137,7 +138,9 @@ textarea {
   transition: background-color 300ms;
 }
 textarea:active,
-textarea:hover {
+textarea:hover,
+input:active,
+input:hover {
   background: #fef;
 }
 
@@ -195,10 +198,6 @@ code {
   white-space: nowrap;
   clip-path: inset(50%);
   border: 0;
-}
-
-.sr-only + * {
-  margin: 0;
 }
 
 /*
