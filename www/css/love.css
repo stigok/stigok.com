@@ -176,16 +176,15 @@ pre {
   border: 1px solid #ddd;
   margin: 0.5rem 0.75rem;
   padding: .5rem;
-  background: #000;
-  color: #0F0;
+  background: #fdfdfd;
 }
 
 code {
   display: inline-block;
   border: 1px solid #ddd;
   padding: .5rem;
-  background: #000;
-  color: #0F0;
+  background: #fefefe;
+  color: #333;
 }
 
 /* bootstrap 4 */
