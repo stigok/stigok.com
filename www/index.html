@@ -180,13 +180,10 @@
           })
         }
       </script>
-      <p>
-        Send me a private message here!
-      </p>
       <form id="messageForm" action="https://stigok.com/api/v1/messages" encoding="application/json" method="post" onsubmit="sendMessage(); return false">
-        <label for="messageName" class="sr-only">name</label>
-        <input id="messageName" name="name" required placeholder="name / handle">
-        <label for="messageText" class="sr-only">message</label>
+        <label for="messageName">name (alphabetical characters only)</label>
+        <input id="messageName" name="name" pattern="^[a-zA-Z0-9-_ ]{1,100}$" placeholder="name / handle">
+        <label for="messageText">message</label>
         <textarea id="messageText" name="message" required placeholder="text" rows="4" cols="80"></textarea>
         <input type="submit" name="sendmsg" value="send private message">
       </form>
