@@ -213,3 +213,17 @@ code {
     opacity: 1;
   }
 }
+
+#messageForm {
+  margin-bottom: 1rem;
+  padding: 0 1.25rem;
+}
+
+#messageForm label {
+  display: block;
+  margin-top: .5rem;
+}
+
+#messageForm label::after {
+  content: ':';
+}
