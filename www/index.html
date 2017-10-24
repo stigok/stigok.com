@@ -110,6 +110,7 @@
     }
     $(function () {
       var $banner = $('#banner')
+      $banner.children[0].remove()
       $banner.addEventListener('click', toggleElementBlendMode)
       $banner.style.cursor = 'pointer'
       toggleElementBlendMode.call($banner)
@@ -121,7 +122,9 @@
     <header id="header">
       <h1>stigok.com</h1>
     </header>
-    <section id="banner"></section>
+    <section id="banner">
+      <img src="img/stigok.png" class="img-responsive">
+    </section>
     <div id="about">
       <h2>about</h2>
       <ol>
