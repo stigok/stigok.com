@@ -47,22 +47,22 @@
           stagger(posts, update, render)
         })
 
-      const screensUrl = 'https://public.42.fm/'
-      const renderScreens = hyperHTML.bind(document.querySelector('#screens'))
-      function updateScreens (screens) {
-        renderScreens`${screens.map(screen => hyperHTML.wire(screen)`
-          <li class="staggered"><a href="${screen.url}">${screen.name}</a></li>
-        `)}`
-      }
-      req(screensUrl + '?json', (err, xhr) => {
-        if (err) return console.error(err)
-        console.log(xhr)
-        const screens = xhr.json.map(url => ({
-          url: screensUrl + url,
-          name: url
-        }))
-        stagger(screens, updateScreens, renderScreens)
-      })
+      //const screensUrl = 'https://public.42.fm/'
+      //const renderScreens = hyperHTML.bind(document.querySelector('#screens'))
+      //function updateScreens (screens) {
+      //  renderScreens`${screens.map(screen => hyperHTML.wire(screen)`
+      //    <li class="staggered"><a href="${screen.url}">${screen.name}</a></li>
+      //  `)}`
+      //}
+      //req(screensUrl + '?json', (err, xhr) => {
+      //  if (err) return console.error(err)
+      //  console.log(xhr)
+      //  const screens = xhr.json.map(url => ({
+      //    url: screensUrl + url,
+      //    name: url
+      //  }))
+      //  stagger(screens, updateScreens, renderScreens)
+      //})
 
       const renderMusic = hyperHTML.bind(document.querySelector('#tracks'))
       function updateMusic (data) {
