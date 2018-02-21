@@ -1,0 +1,101 @@
+doctype html
+
+head
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width')
+  meta(name='description' content=site.description)
+  title= site.title
+
+  //- TODO: Print these files inline instead
+  each path in site.stylesheets
+    link(rel='stylesheet' href=path)
+  each path in site.scripts
+    script(src=path)
+
+body
+  .container
+    header#header
+      h3= site.title
+
+    section#banner
+      img(src='img/stigok.png').img-responsive
+
+    #about
+      h2 about
+      ol
+        each adj in ['good', 'brave', 'free']
+          li be #{adj}
+
+    #blogPosts
+      h2 latest #[a(href='https://blog.stigok.com' title='blog.stigok.com') blog] posts
+      ul
+        each post in data.blogposts
+          li
+            a(href='https://blog.stigok.com/'+post.slug)= post.title
+
+    #pictures
+      h2 pictures
+      ul
+        li under construction ;)
+
+    #music
+      h2 hot music
+      ul
+        //- TODO: Add mouseover artwork
+        each track in data.music
+          li(data-hover-image=track.artwork_url)
+            a(href=track.permalink_url)= track.title 
+
+    #projects
+      h2 projects & tools
+      ul
+        each link in data.projects
+          li
+            a(href=link.url)= link.name
+
+    #links
+      h2 links
+      ul
+        each link in data.links
+          li
+            a(href=link.url)= link.name
+
+    #contact
+      h2 contact
+      form#messageForm(action='https://stigok.com/api/v1/messages'
+                       encoding='application/json'
+                       method='post' onsubmit='sendMessage(); return false')
+
+        label(for='messageName') name (alphabetical chars only)
+        input(id='messageName' name='name' pattern='^[a-zA-Z0-9-_ ]{1,100}$' required placeholder='name / handle')
+
+        label(for='messageText') message
+        textarea(id='messageText' name='message' required placeholder='text' rows=4 cols=80)
+
+        input(type='submit' name='sendmsg' value='send message')
+
+      p.
+        if you expect me to answer your message, leave some contact info of your own
+
+      p.
+        alternatively, my #[strong e-mail] address starts with #[strong stig@]
+        and ends with #[strong stigok.com]
+
+    #publickey
+      h2 public key
+      p
+        | fingerprint:
+        <pre>64548B336FFB593190DD46427E0B094095F01E6C</pre>
+      p
+        a(href=data.publickey.url)= data.publickey.name
+
+    footer#footer.container.
+      1 love, foreal
+
+  script.
+    var banner = document.getElementById('banner')
+    banner.children[0].remove()
+    banner.addEventListener('click', toggleElementBlendMode)
+    banner.style.cursor = 'pointer'
+    toggleElementBlendMode.call(banner)
+
