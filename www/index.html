@@ -83,15 +83,16 @@
 
     function getPosts (count) {
       return new Promise((resolve, reject) => {
-        req('https://blog.stigok.com/posts.json', (err, data) => {
+        req('https://blog.stigok.com/feed.json', (err, data) => {
           if (err) {
             reject(err)
             return
           }
-          const posts = data.json
+          const posts = data.json.items
             .slice(0, count)
-            .map(post => Object.assign(post, {
-              link: `https://blog.stigok.com/post/${post.slug}`
+            .map((p) => ({
+              link: p.url,
+              title: p.title
             }))
           resolve(posts)
         })
