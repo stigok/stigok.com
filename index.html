@@ -20,121 +20,75 @@
       <img src="img/stigok.png" class="img-responsive">
     </section>
     <section id="about">
-      <h2>about</h2>
+      <h2>About</h2>
       <p>
-        I am an independent system developer and -operator who loves programming.
+        I'm an independent software developer and system operator who loves to program.
       </p>
       <p>
-        10+ years of professional experience writing commercial web applications.
-        These days I'm focusing on test-driven development in Python and JavaScript,
-        and eager to join projects that leverage Kubernetes and/or Apache Kafka.
-        I can fill supporting roles in systems architecture
-        and consult when designing distributed systems.
+        I have 10 years of professional experience writing and running commercial
+        web applications. These days I focus on Python, JavaScript and
+        test-driven development (TDD). I am specifically eager
+        to take part in projects that leverage Kubernetes and/or Apache Kafka.
       </p>
-      <p>
-        I enjoy anything programmable to use for control systems or
-        monitoring nodes, like
-        <ul>
-          <li>Arduino</li>
-          <li>Raspberry Pi</li>
-          <li>ESP8266/ESP32</li>
-        </ul>
-      </p>
-      <p>
-        <ul>
-          <li>I use version control</li>
-          <li>I write tests</li>
-          <li>I avoid soups, spaghetti and other foody smells in my code</li>
-        </ul>
-      </p>
-    </section>
-    <section id="links">
-      <h2>links</h2>
+      <h3>What I can do</h3>
       <ul>
-        <li><a href="https://blog.stigok.com">blog.stigok.com</a></li>
-        <li><a href="projects/box-shadow-box/index.html">css box-shadow box fun (?)</a></li>
+        <li>Deliver maintainable Python and JavaScript solutions with tests
+            that conform to spec.</li>
+        <li>Fill supporting roles in systems architecture.</li>
+        <li>Consult teams when designing distributed systems.</li>
+        <li>Set up automatically scalable virtual infrastructure in a
+            hosted or private cloud environment.</li>
+        <li>Move existing applications to a container runtime environment
+            like Docker and Kubernetes.</li>
+        <li>
+          Programming computers and chips to use for control systems or as
+          monitoring nodes, using hardware like
+          <ul>
+            <li>ESP8266/ESP32</li>
+            <li>Arduino</li>
+            <li>Raspberry Pi</li>
+          </ul>
+        </li>
+      </ul>
+      <h3>Selling words</h3>
+      <ul>
+        <li>I use version control.</li>
+        <li>I write tests.</li>
+        <li>I do my best to conform to and stay up-to-date on best practices.</li>
+        <li>I support open source software and give back where I can.</li>
+        <li>I train Brasilian jiu-jitsu (FWIW, it means the world to me).</li>
       </ul>
     </section>
-    <section id="projects">
-      <h2>projects &amp; tools</h2>
+    <section id="links">
+      <h2>Projects, links and tools</h2>
       <ul>
-        <li><a href="https://ip.stigok.com">"What is my IP?"</a></li>
+        <li>
+          I write about problems I encounter and how I solve them on
+          <a href="https://blog.stigok.com">my blog</a>.
+        </li>
+        <li>
+          A page where you can see <a href="https://ip.stigok.com">what your current ip address is</a>.
+        </li>
+        <li>
+          A page to test
+          <a href="projects/box-shadow-box/index.html">animated css box-shadow</a>.
+        </li>
+        <li>
+          I try to stay active with sharing and contributing on
+          <a href="https://github.com/stigok">my GitHub page</a>.
+        </li>
       </ul>
     </section>
     <section id="contact">
-      <h2>contact</h2>
-      <script>
-        function sendMessage() {
-          req(messageForm.action, {
-            name: messageName.value,
-            message: messageText.value
-          }, function (text, xhr) {
-            if (xhr && xhr.status === 201) {
-              messageForm.disabled = true
-              alert('message received!')
-              messageForm.reset()
-            } else {
-              alert('message was not sent... (' + text + ')')
-              console.error('Failed to send message', arguments)
-            }
-          })
-        }
-      </script>
-      <form id="messageForm" action="https://stigok.com/api/v1/messages" encoding="application/json" method="post" onsubmit="sendMessage(); return false">
-        <label for="messageName">name (alphabetical characters only)</label>
-        <input id="messageName" name="name" pattern="^[a-zA-Z0-9-_ ]{1,100}$" placeholder="name / handle">
-        <label for="messageText">message</label>
-        <textarea id="messageText" name="message" required placeholder="text" rows="4" cols="80"></textarea>
-        <input type="submit" name="sendmsg" value="send private message">
-      </form>
+      <h2>Contact</h2>
       <p>
-        if you expect me to answer your message, include some contact
-        information of your own.
+        You can send me an e-mail at <a href="mailto:hello@stigok.com">hello@stigok.com</a>.
       </p>
       <p>
-        alternatively, my <strong>e-mail</strong> address starts with
-        <strong>stig@</strong> and ends with <strong>stigok.com</strong>.
+        If you want to, you can encrypt the e-mail using my
+        <a href="https://stigok.com/publickey.asc">public key</a>.
       </p>
-    </section>
-    <section id="publicKey">
-      <h2>public key</h2>
-      <p>
-        <a href="https://stigok.com/publickey.asc">publickey.asc</a>
-      </p>
-      <pre id="publickey">
------BEGIN PGP PUBLIC KEY BLOCK-----
-mQENBFhSXtMBCADf1CGtevPBIHJOAJAAAAjJ1sL9fljguX+cv9xcWgZOr3qcBpAQ
-XdLzzgeIGfTQznu2dNcntLwalTtAr9SI/Tb5iiQE+voffeuDogoifIrUWGnZsjyl
-smN2zMWxXzJCNmGY2MlA3Y7fnS7WnRh3gXJbYqairuvLxFseHyPlzUtfi8VKJ2SQ
-gDyzppLqtOerwnCQ7WD9ayMA2qkvNgR/br60F8LI+sSnccMItqPN7z/uwffkzIc+
-e6SjpDKlt26P7d/74z2WuQ3BJfKL0DQteaA0nP7h0SLDZWvycPtSSI/gBoz7Nawn
-HzwocyJ+jcyqlmPkP0QvQhF44OX0sY3qJF9LABEBAAG0JFN0aWcgT3RuZXMgS29s
-c3RhZCA8c3RpZ0BzdGlnb2suY29tPokBTgQTAQgAOBYhBGRUizNv+1kxkN1GQn4L
-CUCV8B5sBQJYUl7TAhsDBQsJCAcCBhUICQoLAgQWAgMBAh4BAheAAAoJEH4LCUCV
-8B5slAIIALIz86QSuRMizNgj5UaC45U0DqgPuW8Qg6XVEynJ+vyr+EJ906FMRcWH
-8iwYlwqUWVL6cJWC4p3Gr+2zICHjK+n+s/UTCeVxu9fCO+5w1m6knElHZugzJ1e0
-0TuL37AQdF9Cc2maSDW+tffEG1LNb4f+dNMnj0jUvOazt/gKzcMge92th4IX76nz
-swmoNmeRuD5T77R64juTYzc/Kdn2TR51jVp/CvAtWIgRQOQ08wnEiGDbMxjNYkxX
-AHOLRTgwjidMpL2G53JoVRL823P9RO6zQbC/Uj2iPX+4yZXG0FURDTqImGujEKbI
-9/ALw1vXIYTcpvFTKi0LPrj5sMSydrG5AQ0EWFJe0wEIAKowBODptHl+Bx/ocEYC
-mKyO7ElGBbOcIt/Hp3YkWVWsBZzf4OhNOpkkwVxWwLLocEPsZo8eft66G3+Zdb3q
-e1+p9781v7x/KIF+EG4oIb8YPslg+vefjT8s1QWvm9T8pqQiqdeqHcLnMpEHo5UJ
-BTA92E6CiU91KsZdFrbnzLJ44px/t8u80MnbIGckCqMJ4foRQnRmsub2gJW7RE/T
-0TnalfhECAmxmiN1VYbuV2M3QAne+22l1jMiOkMPjiP1Q8RxIqb1zHqtaZf3q0vJ
-L7yEbZMvi72FLVorEAz0OJ6A0o+1ZlkdCPv9OQG+yxCom1VPcMXEdKZEL0oJUJRC
-CRMAEQEAAYkBNgQYAQgAIBYhBGRUizNv+1kxkN1GQn4LCUCV8B5sBQJYUl7TAhsM
-AAoJEH4LCUCV8B5sgb4H/2ahA5IHuj7oFgp+D4SABxMd1R9imaIQlICHgnPqhwc4
-X6a5AH71uYbICiCftYoqpVRelpoYqkLTJiYtJdhJjX3Nt4PIf7S1SxLgDOuW1YoZ
-Hw4sX3GsvzsoC1nxS18myPfpJb+lsshVI2ke0jeJp7q9Bq+Qur0dAxfUqmmwyw1U
-sXklBrx1uEOedQIuWUt0sneiWOt3ngB5IMComfCdDmFLjHtACyRzQpICD5nY5a5V
-XzFz6yYBfNVgk71YuFiKFwZbVrCApJQ640DpooausW1GUMO3rYJdoqFm2CWDl1PU
-DEnj8No+Lvi7WoUXO8DJ1Ri+eT/QjqjJT1WNgN5YKDQ=
-=AC9l
------END PGP PUBLIC KEY BLOCK-----</pre>
     </section>
   </div>
-  <footer id="footer" class="container">
-    1 love, foreal
-  </footer>
 </body>
 </html>
