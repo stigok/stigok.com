@@ -29,7 +29,7 @@ function setup () {
   // Change banner automatically until clicked
   interval = setInterval(function () {
     randomizeBlendMode($banner);
-  }, 10000);
+  }, 30000);
 }
 
 document.addEventListener('DOMContentLoaded', setup, false);
