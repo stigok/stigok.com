@@ -1,15 +1,16 @@
-var blendModes = 'color,color-burn,color-dodge,darken,difference,exclusion,hard-light,hue,lighten,luminosity,multiply,normal,overlay,saturation,screen,soft-light'.split(',');
+var blendModes = 'color,color-burn,color-dodge,darken,difference,exclusion,hard-light,hue,lighten,luminosity,multiply,normal,overlay,saturation,screen,soft-light'.split(',')
+  , $banner;
 
-function getRandomInt (min, max) {
+function random (min, max) {
   return Math.floor(Math.random() * (max - min)) + min
 }
 
-function getRandomBlendMode (arr) {
-  return blendModes[getRandomInt(0, blendModes.length)]
+function randomizeBlendMode (el) {
+  el.style.backgroundBlendMode = blendModes[random(0, blendModes.length)];
 }
 
-document.addEventListener('DOMContentLoaded', function(){
-  var $banner = document.getElementById('banner');
+function setup () {
+  $banner = document.getElementById('banner');
 
   // Remove original image
   if ($banner.children.length) {
@@ -18,8 +19,10 @@ document.addEventListener('DOMContentLoaded', function(){
 
   // Make banner interactable
   $banner.addEventListener('click', function () {
-    this.style.backgroundBlendMode = getRandomBlendMode()
+    randomizeBlendMode($banner);
   })
   $banner.style.cursor = 'pointer'
   $banner.click();
-}, false);
+}
+
+document.addEventListener('DOMContentLoaded', setup, false);
