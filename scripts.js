@@ -8,14 +8,18 @@ function getRandomBlendMode (arr) {
   return blendModes[getRandomInt(0, blendModes.length)]
 }
 
-window.document.onload = function () {
-  console.log('document load');
+document.addEventListener('DOMContentLoaded', function(){
+  var $banner = document.getElementById('banner');
+
+  // Remove original image
+  if ($banner.children.length) {
+    $banner.children[0].remove();
+  }
 
   // Make banner interactable
-  var $banner = document.getElementById('banner');
   $banner.addEventListener('click', function () {
     this.style.backgroundBlendMode = getRandomBlendMode()
   })
   $banner.style.cursor = 'pointer'
   $banner.click();
-}
+}, false);
