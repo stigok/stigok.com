@@ -1,5 +1,6 @@
 var blendModes = 'color,color-burn,color-dodge,darken,difference,exclusion,hard-light,hue,lighten,luminosity,multiply,normal,overlay,saturation,screen,soft-light'.split(',')
-  , $banner;
+  , $banner
+  , interval;
 
 function random (min, max) {
   return Math.floor(Math.random() * (max - min)) + min
@@ -20,9 +21,15 @@ function setup () {
   // Make banner interactable
   $banner.addEventListener('click', function () {
     randomizeBlendMode($banner);
+    clearInterval(interval);
   })
   $banner.style.cursor = 'pointer'
   $banner.click();
+
+  // Change banner automatically until clicked
+  interval = setInterval(function () {
+    randomizeBlendMode($banner);
+  }, 10000);
 }
 
 document.addEventListener('DOMContentLoaded', setup, false);
