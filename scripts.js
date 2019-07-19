@@ -3,7 +3,7 @@ var blendModes = 'color,color-burn,color-dodge,darken,difference,exclusion,hard-
   , interval;
 
 function random (min, max) {
-  return Math.floor(Math.random() * (max - min)) + min
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 
 function randomizeBlendMode (el) {
@@ -22,8 +22,8 @@ function setup () {
   $banner.addEventListener('click', function () {
     randomizeBlendMode($banner);
     clearInterval(interval);
-  })
-  $banner.style.cursor = 'pointer'
+  });
+  $banner.style.cursor = 'pointer';
   $banner.click();
 
   // Change banner automatically until clicked
