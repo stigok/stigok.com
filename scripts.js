@@ -42,7 +42,7 @@ function setup () {
   // Set random banner blend mode periodically
   changeBlendModeIntervalRef = setInterval(function () {
     setBannerBlendMode(random(0, blendModes.length));
-  }, 2000);
+  }, 20000);
 }
 
 document.addEventListener('DOMContentLoaded', setup, false);
