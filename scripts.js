@@ -1,31 +1,26 @@
 var blendModes = 'color,color-burn,color-dodge,darken,difference,exclusion,hard-light,hue,lighten,luminosity,multiply,normal,overlay,saturation,screen,soft-light'.split(',')
   , $banner
-  , $list
-  , interval;
+  , $ul
+  , changeBlendModeIntervalRef;
 
 function random (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function randomizeBlendMode (el) {
-}
-
-function setBlendMode (el, blendMode) {
-  console.log(arguments)
-  el.style.backgroundBlendMode = blendMode;
+function setBannerBlendMode (idx) {
+  $banner.style.backgroundBlendMode = blendModes[idx];
 
   // Set active box state
-  for (let li, i = 0; i < blendModes.length; i++) {
-    li = $list.children[i];
-    li.className = (blendMode === blendModes[i]) ? 'active' : '';
+  for (let i = 0; i < blendModes.length; i++) {
+    $ul.children[i].className = (i === idx) ? 'active' : '';
   }
 }
 
 function setup () {
   $banner = document.getElementById('banner');
-  $list = document.createElement('ul');
+  $ul = document.createElement('ul');
 
-  // Remove original image
+  // Remove original image (progressive enhancement)
   if ($banner.children.length) {
     $banner.children[0].remove();
   }
@@ -35,18 +30,19 @@ function setup () {
   for (let li, i = 0; i < blendModes.length; i++) {
     li = document.createElement('li');
     li.title = blendModes[i];
-    li.addEventListener('click', function () {
-      setBlendMode($banner, blendModes[i]);
-      clearInterval(interval);
+    li.addEventListener('mousedown', function () {
+      setBannerBlendMode(i);
+      clearInterval(changeBlendModeIntervalRef);
     });
-    $list.appendChild(li);
+    $ul.appendChild(li);
   }
-  $banner.appendChild($list);
+  $banner.appendChild($ul);
+  $ul.children[blendModes.indexOf('normal')].dispatchEvent(new Event('mousedown'));
 
-  // Change banner automatically until clicked
-  interval = setInterval(function () {
-    setBlendMode($banner, blendModes[random(0, blendModes.length)]);
-  }, 30000);
+  // Set random banner blend mode periodically
+  changeBlendModeIntervalRef = setInterval(function () {
+    setBannerBlendMode(random(0, blendModes.length));
+  }, 2000);
 }
 
 document.addEventListener('DOMContentLoaded', setup, false);
