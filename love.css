@@ -72,6 +72,29 @@ body {
   height: 11rem;
   background: #f7f url(stigok.png) center center no-repeat;
   background-size: cover;
+  position: relative;
+}
+
+#banner > ul {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  bottom: 1rem;
+  left: 0;
+}
+
+#banner > ul > li {
+  margin-left: .25rem;
+  background: rgba(255, 255, 255, 0.2);
+  width: .75rem;
+  height: .75rem;
+  display: inline-block;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+#banner > ul > li.active {
+  opacity: .5;
 }
 
 .img-responsive {

@@ -1,5 +1,6 @@
 var blendModes = 'color,color-burn,color-dodge,darken,difference,exclusion,hard-light,hue,lighten,luminosity,multiply,normal,overlay,saturation,screen,soft-light'.split(',')
   , $banner
+  , $list
   , interval;
 
 function random (min, max) {
@@ -7,11 +8,22 @@ function random (min, max) {
 }
 
 function randomizeBlendMode (el) {
-  el.style.backgroundBlendMode = blendModes[random(0, blendModes.length)];
+}
+
+function setBlendMode (el, blendMode) {
+  console.log(arguments)
+  el.style.backgroundBlendMode = blendMode;
+
+  // Set active box state
+  for (let li, i = 0; i < blendModes.length; i++) {
+    li = $list.children[i];
+    li.className = (blendMode === blendModes[i]) ? 'active' : '';
+  }
 }
 
 function setup () {
   $banner = document.getElementById('banner');
+  $list = document.createElement('ul');
 
   // Remove original image
   if ($banner.children.length) {
@@ -19,16 +31,21 @@ function setup () {
   }
 
   // Make banner interactable
-  $banner.addEventListener('click', function () {
-    randomizeBlendMode($banner);
-    clearInterval(interval);
-  });
-  $banner.style.cursor = 'pointer';
-  $banner.click();
+  // Add carousel-like selection boxes for active blend mode
+  for (let li, i = 0; i < blendModes.length; i++) {
+    li = document.createElement('li');
+    li.title = blendModes[i];
+    li.addEventListener('click', function () {
+      setBlendMode($banner, blendModes[i]);
+      clearInterval(interval);
+    });
+    $list.appendChild(li);
+  }
+  $banner.appendChild($list);
 
   // Change banner automatically until clicked
   interval = setInterval(function () {
-    randomizeBlendMode($banner);
+    setBlendMode($banner, blendModes[random(0, blendModes.length)]);
   }, 30000);
 }
 
