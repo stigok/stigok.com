@@ -101,7 +101,7 @@ body {
 }
 
 #banner > ul > li:active {
-  box-shadow: 0rem 0rem 1rem 100vw rgba(255,0,255,1);
+  box-shadow: 0rem 0rem 1rem 100vw rgba(255,0,255,.77);
   width: 6rem;
   height: 10rem;
   z-index: 2;
@@ -137,6 +137,11 @@ ul {
 
 li {
   margin-left: 0;
+}
+
+.z-front {
+  position: relative;
+  z-index: 42;
 }
 
 /* bootstrap 4 */
