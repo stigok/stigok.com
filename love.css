@@ -102,8 +102,6 @@ body {
 
 #banner > ul > li:active {
   box-shadow: 0rem 0rem 1rem 100vw rgba(255,0,255,.77);
-  width: 6rem;
-  height: 10rem;
   z-index: 2;
   position: relative;
 }
