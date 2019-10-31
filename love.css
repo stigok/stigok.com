@@ -142,6 +142,15 @@ li {
   z-index: 42;
 }
 
+.bullet-green {
+  display: inline-block;
+  background-color: #00ff7f42;
+  border: 1px solid #ccc;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+}
+
 /* bootstrap 4 */
 .sr-only {
   position: absolute;
