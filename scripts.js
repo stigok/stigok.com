@@ -39,6 +39,31 @@ function setup () {
   $banner.appendChild($ul);
   $ul.children[blendModes.indexOf('normal')].dispatchEvent(new Event('mousedown'));
 
+  // Add arrow key navigation (and vim support)
+  document.addEventListener('keydown', function (event) {
+    const keys = ["ArrowLeft", "j", "ArrowRight", "k"];
+    const current = blendModes.indexOf($banner.style.backgroundBlendMode || 0);
+
+    // Return early if key press isn't interesting
+    if (keys.indexOf(event.key) < 0) {
+      return;
+    }
+
+    // Don't auto-switch anymore
+    clearInterval(changeBlendModeIntervalRef);
+
+    let next;
+    if (event.key === keys[0] || event.key === keys[1]) {
+      next = current - 1;
+    } else if (event.key === keys[2] || event.key === keys[3]) {
+      next = current + 1;
+    }
+
+    // Wrap around when going out of bounds
+    next = (next < 0) ? blendModes.length - 1: next % blendModes.length;
+    setBannerBlendMode(next);
+  });
+
   // Set random banner blend mode periodically
   changeBlendModeIntervalRef = setInterval(function () {
     setBannerBlendMode(random(0, blendModes.length));
