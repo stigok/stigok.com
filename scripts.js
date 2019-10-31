@@ -41,7 +41,7 @@ function setup () {
 
   // Add arrow key navigation (and vim support)
   document.addEventListener('keydown', function (event) {
-    const keys = ["ArrowLeft", "j", "ArrowRight", "k"];
+    const keys = ['ArrowLeft', 'j', 'ArrowRight', 'k'];
     const current = blendModes.indexOf($banner.style.backgroundBlendMode || 0);
 
     // Return early if key press isn't interesting
