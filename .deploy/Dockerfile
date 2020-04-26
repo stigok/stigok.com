@@ -1,3 +1,4 @@
 FROM nginx:alpine
 COPY . /usr/share/nginx/html
-COPY default.conf /etc/nginx/conf.d/default.conf
+# Path is relative to context, which is the repo root
+COPY ./.deploy/default.conf /etc/nginx/conf.d/default.conf
