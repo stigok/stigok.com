@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: homepage
+  name: homepage
+  namespace: stigok
+spec:
+  replicas: 2
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: homepage
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: homepage
+    spec:
+      containers:
+      - image: rg.fr-par.scw.cloud/fireto/stigok/stigok.com:latest
+        imagePullPolicy: Always
+        name: homepage
+        resources:
+          requests:
+            memory: 100Mi
+            cpu: 50m
+          limits:
+            memory: 250Mi
+            cpu: 200m
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: stigok
+  name: homepage
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: homepage
+  type: ClusterIP
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx
+  labels:
+    app: homepage
+  name: homepage
+  namespace: stigok
+spec:
+  rules:
+  - host: www.stigok.com
+    http:
+      paths:
+      - backend:
+          serviceName: homepage
+          servicePort: 80
+  - host: stigok.com
+    http:
+      paths:
+      - backend:
+          serviceName: homepage
+          servicePort: 80
+  tls:
+  - hosts:
+    - stigok.com
+    - www.stigok.com
+    secretName: homepage-tls-cert
