@@ -33,7 +33,7 @@ jobs:
 
     steps:
     - name: Update Kubernetes deployment container image
-      uses: steebchen/kubectl@v1.0.1
+      uses: steebchen/kubectl@1.0.1
       env:
         KUBE_CONFIG_DATA: ${{ secrets.KUBECONFIG_DATA }}
         KUBECTL_VERSION: "1.16"
