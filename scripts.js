@@ -138,7 +138,7 @@ function setup () {
   // Set random banner blend mode periodically
   changeBlendModeIntervalRef = setInterval(function () {
     setBannerBlendModeIndex(random(0, blendModes.length));
-  }, 1000);
+  }, 20000);
 }
 
 document.addEventListener('DOMContentLoaded', setup, false);
