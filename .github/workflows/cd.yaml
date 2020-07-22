@@ -33,10 +33,12 @@ jobs:
 
     # Only deploy if pushed to master
     if: github.event_name == 'push' && github.ref == 'master'
+
     steps:
     - name: Update Kubernetes deployment container image
-      uses: steebchen/kubectl@v1.0.0
+      uses: steebchen/kubectl@v1.0.1
       env:
         KUBE_CONFIG_DATA: ${{ secrets.KUBECONFIG_DATA }}
+        KUBECTL_VERSION: "1.16"
       with:
         args: set image deploy/homepage nginx=${{ secrets.DOCKER_REGISTRY }}/${{ github.repository }}:${{ github.sha }}
