@@ -23,9 +23,7 @@ jobs:
         repository: ${{ github.repository }}
         dockerfile: .deploy/Dockerfile
         path: .
-        tags: latest
-        tag_with_ref: true
-        tag_with_sha: true
+        tags: latest,${{ github.sha }}
 
   deploy:
     needs: build
