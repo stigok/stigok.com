@@ -7,13 +7,83 @@ function random (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function setBannerBlendMode (idx) {
+// Trigger callback `cb` when x-axis of `el` has been dragged more than 100px.
+// Callback is called with string `"left"` or `"right"` as only argument,
+// depending on which direction the element is dragged.
+// Good for carousels.
+// Will block other events (like scrolling) when touch starts on top of `el`.
+//
+// `el` is an HTML element
+// `cb` is a function accepting a single argument `direction`
+//
+// stigok, july 2020
+function touchslide(el, cb) {
+  var lastTouch, initialX;
+
+  console.log('init touchslide on el', el)
+
+  var startX = 0
+    , active = false
+    , touch;
+
+  function touchHandler(ev) {
+    ev.preventDefault();
+
+    switch (ev.type) {
+      case "touchstart":
+        active = true;
+        touch = ev.touches[0];
+        startX = touch.clientX;
+        break;
+      case "touchmove":
+        touch = ev.touches[0];
+        if (!active) {
+          return;
+        }
+        if (touch.clientX >= startX + 100) {
+          active = false;
+          return cb("left");
+        }
+        if (touch.clientX <= startX - 100) {
+          active = false;
+          return cb("right");
+        }
+        break;
+      case "touchend":
+        active = false;
+        break;
+    }
+  }
+
+  el.addEventListener("touchstart", touchHandler, true);
+  el.addEventListener("touchmove", touchHandler, true);
+  el.addEventListener("touchend", touchHandler, true);
+  el.addEventListener("touchcancel", touchHandler, true);
+}
+
+// Set blend mode to specified index `idx`. Bounds are not checked explicitly.
+function setBannerBlendModeIndex (idx) {
   $banner.style.backgroundBlendMode = blendModes[idx];
 
   // Set active box state
   for (let i = 0; i < blendModes.length; i++) {
     $ul.children[i].className = (i === idx) ? 'active' : '';
   }
+}
+
+// Set blend mode index to a position relative to the current.
+// Pass `delta` with `1` for next and `-1` for previous.
+function setBannerBlendModeIndexRelative(delta) {
+  const current = blendModes.indexOf($banner.style.backgroundBlendMode || 0);
+
+  // Wrap around when going out of bounds
+  let next = current + delta;
+  next = (next < 0) ? blendModes.length - 1: next % blendModes.length;
+
+  // Disable auto-change after manual interaction
+  clearInterval(changeBlendModeIntervalRef);
+
+  setBannerBlendModeIndex(next);
 }
 
 function setup () {
@@ -31,7 +101,7 @@ function setup () {
     li = document.createElement('li');
     li.title = blendModes[i];
     li.addEventListener('mousedown', function () {
-      setBannerBlendMode(i);
+      setBannerBlendModeIndex(i);
       clearInterval(changeBlendModeIntervalRef);
     });
     $ul.appendChild(li);
@@ -39,35 +109,36 @@ function setup () {
   $banner.appendChild($ul);
   $ul.children[blendModes.indexOf('normal')].dispatchEvent(new Event('mousedown'));
 
+  // Allow going left or right in carousel using touch events
+  touchslide($banner, function (direction) {
+    if (direction === "left") {
+      setBannerBlendModeIndexRelative(-1);
+    }
+    else if (direction === "right") {
+      setBannerBlendModeIndexRelative(1);
+    }
+  });
+
   // Add arrow key navigation (and vim support)
   document.addEventListener('keydown', function (event) {
     const keys = ['ArrowLeft', 'j', 'ArrowRight', 'k'];
-    const current = blendModes.indexOf($banner.style.backgroundBlendMode || 0);
 
     // Return early if key press isn't interesting
     if (keys.indexOf(event.key) < 0) {
       return;
     }
 
-    // Don't auto-switch anymore
-    clearInterval(changeBlendModeIntervalRef);
-
-    let next;
     if (event.key === keys[0] || event.key === keys[1]) {
-      next = current - 1;
+      setBannerBlendModeIndexRelative(-1);
     } else if (event.key === keys[2] || event.key === keys[3]) {
-      next = current + 1;
+      setBannerBlendModeIndexRelative(1);
     }
-
-    // Wrap around when going out of bounds
-    next = (next < 0) ? blendModes.length - 1: next % blendModes.length;
-    setBannerBlendMode(next);
   });
 
   // Set random banner blend mode periodically
   changeBlendModeIntervalRef = setInterval(function () {
-    setBannerBlendMode(random(0, blendModes.length));
-  }, 20000);
+    setBannerBlendModeIndex(random(0, blendModes.length));
+  }, 1000);
 }
 
 document.addEventListener('DOMContentLoaded', setup, false);
