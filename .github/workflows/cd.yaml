@@ -22,7 +22,7 @@ jobs:
         registry: ${{ secrets.DOCKER_REGISTRY }}
         repository: ${{ github.repository }}
         dockerfile: .deploy/Dockerfile
-        context: .
+        path: .
         tags: latest
         tag_with_ref: true
         tag_with_sha: true
