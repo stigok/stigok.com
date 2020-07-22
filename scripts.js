@@ -8,7 +8,7 @@ function random (min, max) {
 }
 
 // Trigger callback `cb` when x-axis of `el` has been dragged more than 100px.
-// Callback is called with string `"left"` or `"right"` as only argument,
+// Callback is called with string `'left'` or `'right'` as only argument,
 // depending on which direction the element is dragged.
 // Good for carousels.
 // Will block other events (like scrolling) when touch starts on top of `el`.
@@ -30,35 +30,35 @@ function touchslide(el, cb) {
     ev.preventDefault();
 
     switch (ev.type) {
-      case "touchstart":
+      case 'touchstart':
         active = true;
         touch = ev.touches[0];
         startX = touch.clientX;
         break;
-      case "touchmove":
+      case 'touchmove':
         touch = ev.touches[0];
         if (!active) {
           return;
         }
         if (touch.clientX >= startX + 100) {
           active = false;
-          return cb("left");
+          return cb('left');
         }
         if (touch.clientX <= startX - 100) {
           active = false;
-          return cb("right");
+          return cb('right');
         }
         break;
-      case "touchend":
+      case 'touchend':
         active = false;
         break;
     }
   }
 
-  el.addEventListener("touchstart", touchHandler, true);
-  el.addEventListener("touchmove", touchHandler, true);
-  el.addEventListener("touchend", touchHandler, true);
-  el.addEventListener("touchcancel", touchHandler, true);
+  el.addEventListener('touchstart', touchHandler, true);
+  el.addEventListener('touchmove', touchHandler, true);
+  el.addEventListener('touchend', touchHandler, true);
+  el.addEventListener('touchcancel', touchHandler, true);
 }
 
 // Set blend mode to specified index `idx`. Bounds are not checked explicitly.
@@ -111,10 +111,10 @@ function setup () {
 
   // Allow going left or right in carousel using touch events
   touchslide($banner, function (direction) {
-    if (direction === "left") {
+    if (direction === 'left') {
       setBannerBlendModeIndexRelative(-1);
     }
-    else if (direction === "right") {
+    else if (direction === 'right') {
       setBannerBlendModeIndexRelative(1);
     }
   });
