@@ -18,10 +18,6 @@ function random (min, max) {
 //
 // stigok, july 2020
 function touchslide(el, cb) {
-  var lastTouch, initialX;
-
-  console.log('init touchslide on el', el)
-
   var startX = 0
     , active = false
     , targetX = 70
@@ -50,6 +46,7 @@ function touchslide(el, cb) {
           return cb('right');
         }
         break;
+      case 'touchcancel':
       case 'touchend':
         active = false;
         break;
