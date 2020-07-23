@@ -24,6 +24,7 @@ function touchslide(el, cb) {
 
   var startX = 0
     , active = false
+    , targetX = 70
     , touch;
 
   function touchHandler(ev) {
@@ -40,11 +41,11 @@ function touchslide(el, cb) {
         if (!active) {
           return;
         }
-        if (touch.clientX >= startX + 100) {
+        if (touch.clientX >= startX + targetX) {
           active = false;
           return cb('left');
         }
-        if (touch.clientX <= startX - 100) {
+        if (touch.clientX <= startX - targetX) {
           active = false;
           return cb('right');
         }
