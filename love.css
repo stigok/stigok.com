@@ -137,6 +137,10 @@ li {
   margin-left: 0;
 }
 
+.address {
+  white-space: pre-line;
+}
+
 .z-front {
   position: relative;
   z-index: 42;
