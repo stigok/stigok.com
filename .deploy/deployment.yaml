@@ -69,6 +69,8 @@ spec:
             name: homepage
             port:
               number: 80
+        path: /
+        pathType: Prefix
   - host: stigok.com
     http:
       paths:
@@ -77,6 +79,8 @@ spec:
             name: homepage
             port:
               number: 80
+        path: /
+        pathType: Prefix
   tls:
   - hosts:
     - stigok.com
