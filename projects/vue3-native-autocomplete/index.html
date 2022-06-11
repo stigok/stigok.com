@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<script src="https://unpkg.com/lodash@4.17.21/lodash.min.js"></script>
+<script src="https://unpkg.com/vue@3"></script>
+
+<form id="app">
+  <datalist id="searchSuggestions">
+    <!-- Render an option element for each suggested word -->
+    <option v-for="s in suggestions" :value="s">
+  </datalist>
+
+  <input type="search" list="searchSuggestions" autocomplete="off" @input="onchange">
+</form>
+
+<script>
+  'use strict'
+
+  Vue.createApp({
+    // Sets up the intial state
+    data: function() {
+      return {
+        suggestions: []
+      }
+    },
+    // App instance methods
+    methods: {
+      // Returns matching words for the provided query string.
+      // This method should probably go fetch something from the database
+      // when used in the real world.
+      getMatchingWords(s) {
+        const database = ["foo", "bar", "baz", "fourty two", "anaheim"]
+        const matches = database.filter(words => words.includes(s))
+        return Promise.resolve(matches)
+      },
+      // Updates the variable that the datalist is rendered from.
+      updateSuggestions(query) {
+        this.getMatchingWords(query).then(words => {
+          // Must splice the existing array to avoid overwriting the
+          // array Vue is observing (i.e. the one returned from data()).
+          this.suggestions.splice(0, this.suggestions.length, ...words)
+        })
+      },
+      // Fired for every input event because of the `@input` attribute
+      // on the form element.
+      onchange(event) {
+        // Get the value of the search input
+        const query = event.target.value
+
+        // Avoid firing the update function excessively while
+        // typing fast by "debouncing" the function.
+        _.debounce(() => this.updateSuggestions(query), 300)()
+      }
+    }
+  }).mount('#app')
+</script>
