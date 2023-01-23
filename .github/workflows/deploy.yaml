@@ -1,0 +1,30 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - main
+      - ci-test
+  workflow_dispatch: {}
+
+concurrency:
+  group: to-prevent-raced-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Transfer files
+      uses: burnett01/rsync-deployments@5.2.1
+      with:
+        switches: -avzr --delete --exclude='- .*'
+        path: .
+        remote_host: ${{ secrets.DEPLOY_HOSTNAME }}
+        remote_user: ${{ secrets.DEPLOY_USERNAME }}
+        remote_key: ${{ secrets.DEPLOY_SSH_KEY }}
+        remote_path: /data/sftp/deploy-stigok-com/www
